@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: eureka-server
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: 192.168.156.22
+  client:
+    # 优先同一zone调用
+    prefer-same-zone-eureka: true
+    # 区域
+    region: chengdu
+    # 可用的区域分区
+    availability-zones:
+      # chengdu区域包含分区：cd1，cd2
+      chengdu: cd1,cd2
+    service-url:
+      cd1: http://192.168.156.22:8761/eureka
+      cd2: http://192.168.156.23:8761/eureka

@@ -1,0 +1,42 @@
+spring:
+  sleuth:
+    sampler:
+      probability: 1.0  # 设置采样比例，1.0表示全部采样
+  zipkin:
+    base-url: http://192.168.156.23:9411/
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: oauth
+          uri: lb://security-service
+          predicates:
+            - Path=/oauth/**
+        - id: user
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - AuthenticationJwtFilter
+        - id: order
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+          filters:
+            - AuthenticationJwtFilter
+server:
+  port: 9000
+
+eureka:
+  instance:
+    hostname: 192.168.156.23
+  client:
+    # 优先同一zone调用
+    prefer-same-zone-eureka: true
+    region: chengdu
+    availability-zones:
+      chengdu: cd1,cd2
+    service-url:
+      cd1: http://192.168.156.22:8761/eureka
+      cd2: http://192.168.156.23:8761/eureka

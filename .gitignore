@@ -1,0 +1,6 @@
+# 项目排除路径
+/eureka-server/target/
+/gateway-service/target/
+/order-service/target/
+/security-service/target/
+/user-service/target/

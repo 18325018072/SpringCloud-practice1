@@ -1,0 +1,21 @@
+server:
+  port: 9003
+eureka:
+  instance:
+    hostname: 192.168.156.23
+  client:
+    prefer-same-zone-eureka: true
+    region: chengdu
+    availability-zones:
+      chengdu: cd1,cd2
+    service-url:
+      cd1: http://192.168.156.22:8761/eureka
+      cd2: http://192.168.156.23:8761/eureka
+spring:
+  application:
+    name: security-service
+  sleuth:
+    sampler:
+      probability: 1.0  # 设置采样比例，1.0表示全部采样
+  zipkin:
+    base-url: http://192.168.156.23:9411/
